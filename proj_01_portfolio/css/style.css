@@ -1,0 +1,205 @@
+/* Baseline style */
+* {
+  margin: 0;
+  color: #2d3c49;
+  font-size: 10px;
+  font-family: sans-serif;
+  font-weight: normal;
+}
+
+/* Common elements */
+
+p {
+  font-size: 1.8rem;
+}
+
+a, a > h4 {
+  text-decoration: none;
+  color: #02b3e4;
+}
+
+h1, h2, h3 {
+  width: 100%;
+  line-height:120%;
+}
+
+h1 {
+  font-size: 2.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 2.4rem;
+}
+
+h3 {
+  font-size: 2rem;
+  color: #7d97ad;
+  font-family: serif;
+}
+
+h4 {
+  font-size: 1.8rem;
+  margin: 10px;
+}
+
+h3, h4 {
+  font-weight: bold;
+}
+
+.img {
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid darkgrey;
+  max-height:200px;
+}
+
+.logo-img {
+  max-height: 80px;
+}
+
+/* Structural elements */
+
+#masthead {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 5px;
+  padding: 10px 0 15px;
+  border-bottom: 4px solid #7d97ad;
+}
+
+#logo {
+  width: 100%;
+  text-align: center;
+}
+
+#page-title {
+  width: 100%;
+  margin: 10px;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+#hero {
+  margin: 10px;
+  background: url("../img/hero-keyboard.jpg") no-repeat center;
+  min-height: 140px;
+}
+
+#projects {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 0 10px;
+}
+
+article {
+  margin: 20px 10px;
+  text-align: center;
+}
+
+#copyright {
+  margin: 0 5px;
+  padding: 10px 0 0;
+  border-top: 4px solid #7d97ad;
+}
+
+/* Media query for 420-640px screens */
+
+@media screen and (min-width:420px) and (max-width:640px) {
+  #masthead {
+    flex-direction: row;
+  }
+
+  #logo {
+    width: 33.3%;
+    margin: 0;
+    text-align: left;
+  }
+
+  #page-title {
+    width: 66.6%;
+    margin: 0;
+    text-align: right;
+  }
+
+  #projects {
+    flex-direction: row;
+    padding: 0 20px;
+  }
+
+  article {
+    margin: 20px 0;
+    width: 50%;
+  }
+
+  p {
+    font-size: 1.6rem;
+  }
+
+  .logo-img {
+    max-height: 110px;
+  }
+}
+
+/* Media query for >641px screens */
+
+@media screen and (min-width:641px){
+  #masthead {
+    flex-direction: row;
+  }
+
+  #logo {
+    width: 15%;
+    margin: 0;
+    text-align: left;
+  }
+
+  #page-title {
+    width: 85%;
+    margin: 0;
+    text-align: right;
+  }
+
+  #hero {
+    background: url("../img/hero-keyboard-large.jpg") no-repeat center;
+    min-height: 250px;
+  }
+
+  #projects {
+    flex-direction: row;
+    padding: 0 20px;
+  }
+
+  article {
+    margin: 20px 0;
+    width: 33.3%;
+  }
+
+  p {
+    font-size: 1.4rem;
+  }
+
+  h1 {
+    font-size: 2.6rem;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+  }
+
+  h4 {
+    font-size: 1.6rem;
+  }
+
+  .logo-img {
+    max-height: 110px;
+  }
+}
