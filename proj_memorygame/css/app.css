@@ -91,6 +91,14 @@ h1 {
     margin-bottom: 10px;
 }
 
+.score-panel .left-score {
+  float: left;
+}
+
+.score-panel .right-score  {
+  float: right;
+}
+
 .score-panel .stars {
     margin: 0;
     padding: 0;
@@ -106,4 +114,12 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+#final-score {
+  display: none;
+  background-color: lightgrey;
+  padding: 5px 15px;
+  position: fixed;
+  z-index: 1;
 }
