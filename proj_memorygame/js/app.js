@@ -33,13 +33,13 @@ let openCards = []; // create an array for tracking open cards
 
 let flippedOptions = []; // create an array for tracking current cards clicked
 
-let matchedCards = []; // create a variable to track matched cards
+let matchedCards = []; // create an array to track matched cards
 
 let moves = 0; // create a variable to track moves
 
-let currentStars = [];
+let currentStars = []; // create an array to track current stars
 
-let finalScore = [];
+let finalScore = []; // create an array to track final score
 
 // create variables to track the time and timer
 let timerCount = 0; // tracking seconds
@@ -63,7 +63,7 @@ function shuffle(array) {
 }
 
 function displayCard(val){
-    if (!val.classList.contains("match") && !val.classList.contains("open")){ //card clicked is not a match already, nor open already
+    if (!val.classList.contains("match") && !val.classList.contains("open")){ // card clicked is not a match already, nor open already
       val.className += " open show"; // display card
       addToOpen(val); // add classes to card
     };
@@ -82,7 +82,7 @@ function cardMatch(){ // when there is a match
     card.classList.add("match"); // add match class
     card.classList.remove("open","show"); // remove unnecessary classes
   });
-  matchedCards = cardDeck.querySelectorAll(".match");
+  matchedCards = cardDeck.querySelectorAll(".match"); // find all matched cards
 };
 
 
@@ -103,7 +103,7 @@ function incrementMoves(){
 
   currentStars = starsContainer.querySelectorAll("li > i[class='fas fa-star']"); // get stars
 
-  if (moves === 17){ // based on number of moves taken, remove stars. This is for two stars
+  if (moves === 18){ // based on number of moves taken, remove stars. This is for two stars
     currentStars[2].classList.add('hide-star');
   } else if (moves === 26) { // one star
     currentStars[1].classList.add( 'hide-star');
@@ -112,26 +112,27 @@ function incrementMoves(){
 
 function matchWinner(){ // when all matches are made
 
-  finalTime = currentTime;
+  finalTime = currentTime; // get the current time
   clearInterval(timerID); // stop timer
   timerCount = 0;
 
-  for (let i = 0; i < currentStars.length; i++){
-    finalScore += '<i class="fas fa-star"></i> ';
-    console.log(finalScore);
+  currentStars = starsContainer.querySelectorAll("li > i[class='fas fa-star']"); // get stars
+
+  for (let i = 0; i < currentStars.length; i++){ // for the length of the currentStars list
+    finalScore += '<i class="fas fa-star"></i> '; // append a star to the finalScore
   };
 
-
+  // final stats modal
   modal.innerHTML = `<h1>Congratulations, you won!</h1><p>Your score: ${finalScore}</p><p>Time taken: ${finalTime} seconds</p><p>Moves taken: ${moves}</p><p><button id="new-game">Play again?</button></p>`;
 
   let redoButton = document.querySelector("#new-game");   // ask to restart
-  redoButton.addEventListener("click", restartGame);
+  redoButton.addEventListener("click", restartGame); // listen for restart click
 
-  modal.addEventListener("click", function(){
+  modal.addEventListener("click", function(){ // when modal is clicked, hide it
     modal.style.display = "none";
   });
 
-  modal.style.display = "block";
+  modal.style.display = "block"; // display the modal
 };
 
 function incrementClock(){
@@ -140,18 +141,18 @@ function incrementClock(){
   timerID = setInterval(function(){
     timerCount += 1; // increment time in seconds
 
-    let time = timerCount;
+    let time = timerCount; // get time in seconds
 
     let minutes = 0;
     let seconds = 0;
 
-    minutes = Math.floor(time / 60);
-    seconds = time % 60;
+    minutes = Math.floor(time / 60); // convert time to whole minutes
+    seconds = time % 60; // find remainder seconds from whole minutes
 
     if (seconds < 10){
-     	currentTime = minutes + ":0" + seconds;
+     	currentTime = minutes + ":0" + seconds; // when less than 10 seconds, add in a 0
     } else {
-    	currentTime = minutes + ":" + seconds;
+    	currentTime = minutes + ":" + seconds; // when 10 seconds or greater
     }
 
     timer.textContent = currentTime; // update visible timer
@@ -160,24 +161,24 @@ function incrementClock(){
 
 function restartGame(){
 
-  clearInterval(timerID);
+  clearInterval(timerID); // clear timer counter
   timerCount = 0; // reset timers
   currentTime = '';
   finalTime = '';
 
-  finalScore = [];
+  finalScore = []; // reset score
 
   moves = 0; // reset moves
 
   matchedCards = []; // reset list of matched cards
 
-  initialize();
+  initialize(); // run game setup
 };
 
 
 function initialize() { // prepare the game
 
-  modal.style.display = "none";
+  modal.style.display = "none"; // hide modal
 
   cardDeck.innerHTML = ``; // delete any existing cards
 
@@ -238,5 +239,4 @@ function cardClick(val) {
 
 };
 
-// run the prep function
-initialize();
+initialize(); // run the prep function
