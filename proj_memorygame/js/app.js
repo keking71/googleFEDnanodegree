@@ -39,9 +39,12 @@ let moves = 0; // create a variable to track moves
 
 let currentStars = [];
 
+let finalScore = [];
+
 // create variables to track the time and timer
-let currentTime = 0;
-let finalTime = 0;
+let timerCount = 0; // tracking seconds
+let currentTime = ''; // tracking nicely formatted time
+let finalTime = ''; // tracking final time
 let timerID = null;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -98,24 +101,28 @@ function incrementMoves(){
 
   moveCounter.textContent = moves; // update visible move counter
 
-  currentStars = starsContainer.querySelectorAll("li > i[class='fas fa-star']"); // get current star rating
+  currentStars = starsContainer.querySelectorAll("li > i[class='fas fa-star']"); // get stars
 
   if (moves === 17){ // based on number of moves taken, remove stars. This is for two stars
-    currentStars[2].classList.remove('fas', 'fa-star');
-    currentStars[2].classList.add('far', 'fa-star');
+    currentStars[2].classList.add('hide-star');
   } else if (moves === 26) { // one star
-    currentStars[1].classList.remove('fas', 'fa-star');
-    currentStars[1].classList.add('far', 'fa-star');
+    currentStars[1].classList.add( 'hide-star');
   };
 };
 
 function matchWinner(){ // when all matches are made
 
-  finalTime = currentTime; // save final time
+  finalTime = currentTime;
   clearInterval(timerID); // stop timer
-  currentTime = 0;
+  timerCount = 0;
 
-  modal.innerHTML = `<h1>Congratulations, you won!</h1><p>Your score: ${currentStars}</p><p>Time taken: ${finalTime} seconds</p><p>Moves taken: ${moves}</p><p><button id="new-game">Play again?</button></p>`;
+  for (let i = 0; i < currentStars.length; i++){
+    finalScore += '<i class="fas fa-star"></i> ';
+    console.log(finalScore);
+  };
+
+
+  modal.innerHTML = `<h1>Congratulations, you won!</h1><p>Your score: ${finalScore}</p><p>Time taken: ${finalTime} seconds</p><p>Moves taken: ${moves}</p><p><button id="new-game">Play again?</button></p>`;
 
   let redoButton = document.querySelector("#new-game");   // ask to restart
   redoButton.addEventListener("click", restartGame);
@@ -131,7 +138,22 @@ function incrementClock(){
   cardDeck.removeEventListener("click", incrementClock); // prevent function from running more than once
 
   timerID = setInterval(function(){
-    currentTime += 1; // increment time in seconds
+    timerCount += 1; // increment time in seconds
+
+    let time = timerCount;
+
+    let minutes = 0;
+    let seconds = 0;
+
+    minutes = Math.floor(time / 60);
+    seconds = time % 60;
+
+    if (seconds < 10){
+     	currentTime = minutes + ":0" + seconds;
+    } else {
+    	currentTime = minutes + ":" + seconds;
+    }
+
     timer.textContent = currentTime; // update visible timer
   }, 1000); // every second
 };
@@ -139,12 +161,15 @@ function incrementClock(){
 function restartGame(){
 
   clearInterval(timerID);
-  currentTime = 0; // reset timers
-  finalTime = 0;
+  timerCount = 0; // reset timers
+  currentTime = '';
+  finalTime = '';
 
-  matchedCards = []; // reset list of matched cards
+  finalScore = [];
 
   moves = 0; // reset moves
+
+  matchedCards = []; // reset list of matched cards
 
   initialize();
 };

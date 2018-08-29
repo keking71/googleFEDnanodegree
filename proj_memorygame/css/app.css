@@ -33,6 +33,10 @@ h1 {
     font-weight: 300;
 }
 
+.hide-star {
+  display: none;
+}
+
 /*
  * Styles for the deck of cards
  */
@@ -118,8 +122,10 @@ h1 {
 
 #final-score {
   display: none;
-  background-color: lightgrey;
   padding: 5px 15px;
   position: fixed;
   z-index: 1;
+  border: 15px solid;
+  border-color: rgb(108, 144, 188);
+  background-color: white;
 }
