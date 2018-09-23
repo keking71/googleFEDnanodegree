@@ -37,6 +37,10 @@ h1 {
   display: none;
 }
 
+.disabled {
+  pointer-events: none;
+}
+
 /*
  * Styles for the deck of cards
  */

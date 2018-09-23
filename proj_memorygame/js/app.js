@@ -64,7 +64,7 @@ function shuffle(array) {
 
 function displayCard(val){
     if (!val.classList.contains("match") && !val.classList.contains("open")){ // card clicked is not a match already, nor open already
-      val.className += " open show"; // display card
+      val.className += " open show disabled"; // display card
       addToOpen(val); // add classes to card
     };
 };
@@ -89,7 +89,7 @@ function cardMatch(){ // when there is a match
 function cardNoMatch(){ // when there is not a match
   setTimeout(function(){
     openCards.forEach(function(card){ // for each open card HTML
-      card.classList.remove("open","show"); // remove classes to hide card
+      card.classList.remove("open","show","disabled"); // remove classes to hide card
     });
     openCards = []; // reset list of open cards
   }, 600); // after .6 seconds
@@ -170,6 +170,7 @@ function restartGame(){
 
   moves = 0; // reset moves
 
+  flippedOptions = [];
   matchedCards = []; // reset list of matched cards
 
   initialize(); // run game setup
@@ -215,11 +216,10 @@ function cardClick(val) {
 
     if (flippedOptions.length < 2){ // if there are less than 2 cards open
       displayCard(this); // display card
-      incrementMoves(); // increment moves and adjust stars
     };
 
     if (flippedOptions.length === 2) { // when there are two cards open
-
+      incrementMoves(); // increment moves and adjust stars
       openCards = cardDeck.querySelectorAll(".open"); // find the HTML of the open cards
 
       if (flippedOptions[0] === flippedOptions[1]){  //compare the values of the open cards for a match
