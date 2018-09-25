@@ -28,12 +28,12 @@ var Engine = (function(global) {
     const winnerAlert = document.getElementById('winner'); // get the winner div
     const replayButton = document.getElementById('replay'); // get the replay button
 
-    replayButton.addEventListener('click', function() { // when the replay button is clicked
+    replayButton.onclick = function() { // when the replay button is clicked
       winnerAlert.classList.toggle("hide"); // hide the modal
       player.reset(); // reset the player
       player.win = false; // reset win status to false
       win.requestAnimationFrame(main); // redraw the game
-      } );
+      };
 
     canvas.width = 505;
     canvas.height = 606;
