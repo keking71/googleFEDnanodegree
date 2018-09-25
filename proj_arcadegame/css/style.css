@@ -1,3 +1,22 @@
 body {
     text-align: center;
 }
+
+.winner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: grey;
+}
+
+.modal-body {
+  height: 400px;
+  width: 400px;
+  background: white;
+}
+
+.hide {
+  display: none;
+}

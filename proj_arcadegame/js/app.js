@@ -30,6 +30,7 @@ class Player { // new class for Player
     this.startY = (this.vertical * 4) + 55; // start in the bottom of the Y axis
     this.x = this.startX; // current x axis position
     this.y = this.startY; // current y axis position
+    this.win = false;
   }
 
   update() {
@@ -39,8 +40,9 @@ class Player { // new class for Player
         this.reset(); // reset the game
       }
     }
-    // check win
-      // did player x and y reach the end?
+    if (this.y === 55) {
+      this.win = true;
+    }
   }
 
   render() { // draw the player on the screen
@@ -74,14 +76,14 @@ class Player { // new class for Player
   }
 }
 
-  const player = new Player(); // create the player using the Player class
+const player = new Player(); // create the player using the Player class
 
-  const bug1 = new Enemy(-100,0,190); // create a bug using the Enemy class
-  const bug2 = new Enemy(-205,83,170); // create a bug using the Enemy class
-  const bug3 = new Enemy(-50,166,210); // create a bug using the Enemy class
+const bug1 = new Enemy(-20,83,190); // create a bug using the Enemy class
+const bug2 = new Enemy(-175,83,160); // create a bug using the Enemy class
+const bug3 = new Enemy(-50,166,240); // create a bug using the Enemy class
 
-  const allEnemies = [];
-  allEnemies.push(bug1,bug2,bug3); // add our enemies to the array
+const allEnemies = [];
+allEnemies.push(bug1,bug2,bug3); // add our enemies to the array
 
 // This listens for key presses and sends the keys to your Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
