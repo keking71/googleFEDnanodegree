@@ -96,3 +96,13 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+function winFunc() {
+  var winnerAlert = document.getElementById('winner'); // get the winner alert 
+  var replayButton = document.getElementById('replay'); // get the replay button
+  winnerAlert.classList.toggle("hide"); // show the winner alert
+
+  replayButton.onclick = function() { // when the replay button is clicked
+    location.reload(); // reload the window
+    };
+};

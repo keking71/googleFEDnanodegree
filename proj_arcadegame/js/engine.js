@@ -25,18 +25,9 @@ var Engine = (function(global) {
         lastTime,
         id;
 
-    const winnerAlert = document.getElementById('winner'); // get the winner div
-    const replayButton = document.getElementById('replay'); // get the replay button
-
-    replayButton.onclick = function() { // when the replay button is clicked
-      winnerAlert.classList.toggle("hide"); // hide the modal
-      player.reset(); // reset the player
-      player.win = false; // reset win status to false
-      win.requestAnimationFrame(main); // redraw the game
-      };
-
     canvas.width = 505;
     canvas.height = 606;
+    canvas.style = "margin:0 auto;";
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -69,7 +60,7 @@ var Engine = (function(global) {
 
          if (player.win === true) {
            win.cancelAnimationFrame(id);
-           winnerAlert.classList.toggle("hide"); // make the modal visible
+           winFunc();
          } else {
            id = win.requestAnimationFrame(main);
          }
@@ -83,7 +74,7 @@ var Engine = (function(global) {
         reset();
         lastTime = Date.now();
         main();
-    }
+    };
 
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how
@@ -97,7 +88,7 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
         // checkCollisions();
-    }
+    };
 
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
@@ -111,7 +102,7 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
-    }
+    };
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
@@ -156,7 +147,7 @@ var Engine = (function(global) {
         }
 
         renderEntities();
-    }
+    };
 
     /* This function is called by the render function and is called on each game
      * tick. Its purpose is to then call the render functions you have defined
@@ -171,7 +162,7 @@ var Engine = (function(global) {
         });
 
         player.render();
-    }
+    };
 
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
@@ -179,7 +170,7 @@ var Engine = (function(global) {
      */
     function reset() {
         // noop
-    }
+    };
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
