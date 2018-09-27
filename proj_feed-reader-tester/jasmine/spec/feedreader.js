@@ -51,7 +51,6 @@ $(function() {
            var menu = document.querySelector('.menu-icon-link'); // get menu icon element
            menu.click(); // when menu click function runs
            expect(body.classList.contains('menu-hidden')).toBe(false); // check body element for class that shows menu
-
            menu.click(); // when menu click function runs again
            expect(body.classList.contains('menu-hidden')).toBe(true); // check body element for class that hides menu
           });
@@ -60,22 +59,32 @@ $(function() {
 
     describe('Initial Entries', function() { // new suite
         var feed = document.querySelector('.feed'); // get the feed element
-
          beforeEach(function(done) { // before tests
-           loadFeed(0, done); // call the feed once it's done working 
+           loadFeed(0, done); // call the feed once it's done working
          });
-
          it('completes its work', function(){
            expect(feed.children.length > 0).toBe(true); // check to make sure there is some child data on the feed
          });
     });
 
     describe('New Feed Selection', function() { // new suite
+        var feed = document.querySelector('.feed'); // get the feed element
+        var feedOne = [];
+        var feedTwo = [];
 
-        // beforeEach
-        // done()
-        // new feed is loaded by loadFeed
-        // content is changed
+        beforeEach(function(done){ // before tests
+          loadFeed(0); // load one feed
+          Array.from(feed.children).forEach(function(entry) { // build array of feed children and loop through
+            feedOne.push(entry.innerText); // add inner text of each entry to the first feed array
+          });
+          loadFeed(1,done); // load another feed
+        });
 
+        it('content is changed', function() {
+          Array.from(feed.children).forEach(function(entry,index) { // build array of feed children from new feed
+            feedTwo.push(entry.innerText);
+            expect(feedTwo[index] === feedOne[index]).toBe(false); // compare entry at specified position to entry in same position in first feed array
+          });
+        });
     });
 }());
