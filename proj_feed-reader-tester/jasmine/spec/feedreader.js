@@ -58,33 +58,37 @@ $(function() {
     });
 
     describe('Initial Entries', function() { // new suite
-        var feed = document.querySelector('.feed'); // get the feed element
          beforeEach(function(done) { // before tests
            loadFeed(0, done); // call the feed once it's done working
          });
-         it('completes its work', function(){
-           expect(feed.children.length > 0).toBe(true); // check to make sure there is some child data on the feed
+
+         it('has at least one entry ', function(){
+           expect($(".feed .entry").length).toBeGreaterThan(0); // check to make sure there is some child data on the feed
          });
     });
 
     describe('New Feed Selection', function() { // new suite
-        var feed = document.querySelector('.feed'); // get the feed element
         var feedOne = [];
         var feedTwo = [];
 
         beforeEach(function(done){ // before tests
-          loadFeed(0); // load one feed
-          Array.from(feed.children).forEach(function(entry) { // build array of feed children and loop through
-            feedOne.push(entry.innerText); // add inner text of each entry to the first feed array
+          loadFeed(0, function() { // load one feed
+            Array.from(feed.children).forEach(function() { // build array of feed children and loop through
+              feedOne = $(".feed").html(); // add inner text of each entry to the first feed array
+              done();
+            });
+
+            loadFeed(1, function() {
+              Array.from(feed.children).forEach(function() { // build array of feed children from new feed
+                feedTwo = $(".feed").html(); // build second array
+                done();
+              });
+            });
           });
-          loadFeed(1,done); // load another feed
         });
 
         it('content is changed', function() {
-          Array.from(feed.children).forEach(function(entry,index) { // build array of feed children from new feed
-            feedTwo.push(entry.innerText);
-            expect(feedTwo[index] === feedOne[index]).toBe(false); // compare entry at specified position to entry in same position in first feed array
-          });
+            expect(feedTwo === feedOne).toBe(false); // compare entry at specified position to entry in same position in first feed array
         });
     });
 }());
