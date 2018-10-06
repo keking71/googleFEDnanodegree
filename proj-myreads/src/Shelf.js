@@ -1,19 +1,33 @@
 import React from 'react';
 import Book from './SingleBook'
+import * as BooksAPI from './BooksAPI'
 
 class Shelf extends React.Component {
-  state = {}
+  state = {
+    books: []
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books: books});
+    })
+  }
+
+  // changeShelf = (book) => {
+  //  this.setState({book.currentShelf: event.target.option})
+//  }
 
   render() {
-    const { books, type } = this.props;
+    const { id, name } = this.props;
+    const { books } = this.state;
 
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{type}</h2>
+        <h2 className="bookshelf-title">{name}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {books.filter(book => book.currentShelf === `${type}`).map(book => (
-              <Book book={book}/>
+            {books.filter(book => book.shelf === `${id}`).map(book => (
+              <Book book={book} />
             ))}
           </ol>
         </div>
