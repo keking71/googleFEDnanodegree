@@ -1,17 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Book from './SingleBook'
 
 class Shelf extends React.Component {
+  state = {}
+
   render() {
-    var books = this.prop.books
+    const { books, type } = this.props;
 
     return (
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{this.prop.type}</h2>
+        <h2 className="bookshelf-title">{type}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {books.filter(book => book.currentShelf = `${this.prop.type}`).map(book => (
-              <Book books={book}/>
+            {books.filter(book => book.currentShelf === `${type}`).map(book => (
+              <Book book={book}/>
             ))}
           </ol>
         </div>
