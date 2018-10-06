@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import BookDisplayShelves from './BookList'
+import BookDisplayShelves from './BookDisplay'
 
-class BookList extends Component {
+class BookList extends React.Component {
   render() {
     return (
 
@@ -11,9 +11,7 @@ class BookList extends Component {
             <h1>MyReads</h1>
           </div>
           <div className="list-books-content">
-            <div>
               <BookDisplayShelves />
-            </div>
           </div>
           <div className="open-search">
             <Link to="/search">Add a book</Link>
