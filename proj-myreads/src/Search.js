@@ -9,6 +9,7 @@ class Search extends Component {
     query: '',
   }
 
+{/* update our query in state */}
   updateQuery = (query) => {
     this.setState({ query: query.trim() })
   }
@@ -19,6 +20,7 @@ class Search extends Component {
 
     let showingBooks = []
 
+{/* if there is a query, check it against the book titles and authors. otherwise display all */}
     if (query) {
       const match = new RegExp(escapeRegExp(query), 'i')
       showingBooks = books.filter((book) => (match.test(book.title) || match.test(book.authors)))

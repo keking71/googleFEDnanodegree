@@ -10,6 +10,7 @@ class Shelf extends React.Component {
         <h2 className="bookshelf-title">{name}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
+            {/* filter the books by whether their shelf matches the current shelf's ID */}
             {books.filter(book => book.shelf === `${id}`).map(book => (
               <Book book={book} key={book.id} updateShelf={updateShelf}/>
             ))}
