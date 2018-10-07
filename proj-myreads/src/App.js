@@ -22,7 +22,7 @@ class BooksApp extends React.Component {
   updateShelf = (thisBook, shelf) => {
     this.setState(prev => { /* set state */
       let addBook = true;
-      prev.books.map(book => {
+      prev.books.forEach(book => {
         if(thisBook.id === book.id) /* check if we're adding a new book */
           addBook = false;
       })
