@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import Book from './SingleBook'
-import * as BooksAPI from './BooksAPI'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 
 class Search extends Component {
   state = {
     query: '',
-    books: []
-  }
-
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books: books});
-    })
   }
 
   updateQuery = (query) => {
@@ -22,13 +14,16 @@ class Search extends Component {
   }
 
   render() {
+    const { books, updateShelf } = this.props;
+    const { query } = this.state;
+
     let showingBooks = []
 
-    if (this.state.query) {
-      const match = new RegExp(escapeRegExp(this.state.query), 'i')
-      showingBooks = this.state.books.filter((book) => (match.test(book.title) || match.test(book.authors)))
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), 'i')
+      showingBooks = books.filter((book) => (match.test(book.title) || match.test(book.authors)))
     } else {
-      showingBooks = this.state.books
+      showingBooks = books
     }
 
     showingBooks.sort(sortBy('title'))
@@ -51,7 +46,7 @@ class Search extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {showingBooks.map(book => (
-              <Book book={book} />
+              <Book book={book} key={book.id} updateShelf={updateShelf} />
             ))}
           </ol>
         </div>
